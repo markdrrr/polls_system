@@ -1,71 +1,74 @@
-Функционал для пользователей системы:
-GET /user/polls
+## Функционал для пользователей системы:
+### GET /user/polls
 Получение списка активных опросов:
 ```
 [
     {
-        id,             # Число
-        name,           # Строка
-        description,    # Строка
-        start_date,     # Формат DD.MM.YYYY
-        finish_date     # Формат DD.MM.YYYY
+        id,
+        name,
+        description,
+        start_date,
+        finish_date
     },
 ]
 ```
-GET /user/polls/(id)
+### GET /user/polls/(id)
 Получение подробной информации об одном опросе, с вопросами и ответами. Тело ответа:
 ```
 {
     id, 
-    name,           # Строка
-    description,    # Строка
-    start_date,     # Формат DD.MM.YYYY
-    finish_date,     # Формат DD.MM.YYYY
+    name,          
+    description,
+    start_date,
+    finish_date, 
     questions: [
         {
             id,
-            text,           # Текст вопроса
-            type,           # Тип вопроса: TEXT, CHOICE, MULTIPLE_CHOICE
-            options: [      # Список вариантов (только для типов CHOICE, MULTIPLE_CHOICE)
-                { index, text },
+            text,  
+            type,  
+            choice: [
+                {
+                    votes,
+                    choice_text
+                },
             ]
         },
     ]
 }
 ```
 
-POST user/polls/(poll_id)
+### POST user/polls/(poll_id)
 Прохождение опроса пользователем, добавляем новый ответ:
 ```
 {
-    user_id,     # Идентификатор пользователя
+    user_id, 
     answers: {
         'question_id': 'Text answer',     
     }
 }
 ```
-GET /user/polls_from_user/(user_id)
+### GET /user/polls_from_user/(user_id)
 Получение пройденных пользователем опросов с детализацией по ответам:
 ```
 [
     {
-        id,                 # Идентификатор заполненного опроса
-        submitTime,         # Дата и время прохождения опроса, формат YYYY-MM-DDThh:mm:ss
-        poll_id,             # Идентификатор опроса
+        id,      
+        submitTime,  
+        poll_id,  
         answers: [
             {
-                question_id,              # Идентификатор вопроса
-                question_type,            # Тип вопроса: TEXT, CHOICE, MULTIPLE_CHOICE
-                question_text,            # Текст вопроса
-                answer_text,              # Текст ответа
+                question_id,     
+                question_type,  
+                question_text,  
+                answer_text, 
             },
         ]
     },
 ]
 ```
 
-Функционал для администратора системы:
-GET /admin/polls
+## Функционал для администратора системы:
+### GET /admin/polls
 Получение списка всех опросов. Тело ответа:
 
 ```
@@ -79,7 +82,7 @@ GET /admin/polls
     },
 ]
 ```
-POST /admin/polls
+### POST /admin/polls
 Создание нового опроса. Тело запроса:
 
 ```
@@ -97,7 +100,7 @@ POST /admin/polls
     id, name, description, start_date, finish_date
 }
 ```
-GET /admin/polls/(id)
+### GET /admin/polls/(id)
 Получение подробной информации об одном опросе, с вопросами и ответами. Тело ответа:
 
 ```
@@ -123,10 +126,10 @@ GET /admin/polls/(id)
 }
 ```
 
-DELETE /admin/polls/(id)
+### DELETE /admin/polls/(id)
 Удаление опроса.
 
-PATCH /admin/polls/(id)
+### PATCH /admin/polls/(id)
 Редактирование опроса. Тело запроса (все поля опциональные):
 
 ```
@@ -144,7 +147,7 @@ PATCH /admin/polls/(id)
 }
 ```
 
-POST /admin/polls/(id)/questions
+### POST /admin/polls/(id)/questions
 Добавление нового вопроса к опросу id:
 
 ```
@@ -172,7 +175,7 @@ POST /admin/polls/(id)/questions
     ]
 }
 ```
-GET /admin/polls/(poll_id)/questions/(question_id)
+### GET /admin/polls/(poll_id)/questions/(question_id)
 Подробная информация об одном вопросе. Тело ответа:
 
 ```
@@ -189,10 +192,10 @@ GET /admin/polls/(poll_id)/questions/(question_id)
 }
 ```
 
-DELETE /admin/polls/(poll_id)/questions/(question_id)
+### DELETE /admin/polls/(poll_id)/questions/(question_id)
 Удаление вопроса из опроса.
 
-PATCH /admin/polls/(pollId)/questions/(questionId)
+### PATCH /admin/polls/(pollId)/questions/(questionId)
 Изменение существующего вопроса. Тело запроса (все поля опциональные):
 
 ```
