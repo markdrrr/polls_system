@@ -8,10 +8,10 @@ from polls.serializers import PollsByUserIDSerializer
 
 
 class PollsUserID(APIView):
-    def get(self, request, id):
+    def get(self, request, user_id):
         """ Получение пройденных пользователем опросов с детализацией по ответам """
         result = []
-        qs = UserPoll.objects.filter(userId=id).select_related('poll')
+        qs = UserPoll.objects.filter(userId=user_id).select_related('poll')
         for el in qs:
             context = PollsByUserIDSerializer(el).data
             context['poll_id'] = el.poll_id

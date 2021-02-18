@@ -48,7 +48,7 @@ class PollId(APIView):
                 raise Poll.DoesNotExist()
 
             # проверяем тело запроса на наличие нужных параметров
-            if not 'userId' in request.data:
+            if not 'user_id' in request.data:
                 raise Exception('userId is missing')
             if not type(request.data['userId']) is int:
                 raise Exception('Invalid userId')
@@ -57,7 +57,7 @@ class PollId(APIView):
             if not type(request.data['answers']) is dict:
                 raise Exception('Invalid answers')
 
-            userId = request.data['userId']
+            userId = request.data['user_id']
             answerDict = request.data['answers']
 
             # проверяем участвовал ли переданный userId в этом опросе

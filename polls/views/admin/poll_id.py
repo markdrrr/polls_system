@@ -18,8 +18,7 @@ class AdminPollId(AdminAPIView):
             result['questions'] = []
             for question in poll.question_set.all():
                 context = QuestionSerializer(question).data
-                if question.hasOptionType:
-                    context['choice'] = ChoiceSerializer(question.option_set.all(), many=True).data
+                context['choice'] = ChoiceSerializer(question.choice_set.all(), many=True).data
                 result['questions'].append(context)
 
             return Response(result)

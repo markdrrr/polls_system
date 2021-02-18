@@ -13,8 +13,8 @@ class AdminQuestionId(AdminAPIView):
         try:
             question = Question.objects.get(id=question_id)
             result = QuestionSerializer(question).data
-            if question.hasOptionType:
-                result['choice'] = ChoiceSerializer(question.choice_set.all(), many=True)
+            result['choice'] = ChoiceSerializer(question.choice_set.all(), many=True).data
+            print(result)
             return Response(result)
 
         except Question.DoesNotExist:
